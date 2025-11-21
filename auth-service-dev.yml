@@ -11,6 +11,13 @@ spring:
       idle-timeout: 300000
       max-lifetime: 1200000
 
+  # FIX STARTS HERE
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  # FIX ENDS HERE
+
   data:
     redis:
       host: localhost
