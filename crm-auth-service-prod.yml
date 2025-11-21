@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-host:5432/authservice_prod
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    hikari:
+      maximum-pool-size: 50
+
+  data:
+    redis:
+      host: prod-redis-host
+      port: 6379
+
+jwt:
+  secret: ${JWT_SECRET}
+
+app:
+  flyway:
+    clean-on-startup: false
+
+logging:
+  level:
+    root: INFO
+    com.crm.AuthService: INFO
+    org.flywaydb: INFO
