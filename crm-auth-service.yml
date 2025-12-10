@@ -3,7 +3,7 @@ spring:
     name: crm-auth-service
 
   datasource:
-    url: jdbc:postgresql://localhost:${DB_PORT:5433}/${POSTGRES_DB:authservice_dev}
+    url: jdbc:postgresql://postgres-db:5432/crm_db
     username: ${POSTGRES_USER:dev_user}
     password: ${POSTGRES_PASSWORD:dev_pass}
     driver-class-name: org.postgresql.Driver

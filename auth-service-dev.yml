@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://host.docker.internal:5432/authservice_dev
+    url: jdbc:postgresql://postgres-db:5432/crm_db
     username: dev_user
     password: dev_pass
     driver-class-name: org.postgresql.Driver

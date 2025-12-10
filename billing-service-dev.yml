@@ -7,7 +7,7 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8888"
   datasource:
-    url: jdbc:postgresql://localhost:5432/crm_db
+    url: jdbc:postgresql://postgres-db:5432/crm_db
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
