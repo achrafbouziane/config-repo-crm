@@ -13,8 +13,8 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOrigins:
-              - "http://localhost:4200" # Your local Angular app
-              - "http://localhost"      # Production Frontend (if served via Nginx)
+              - "http://localhost:4200"
+              - "http://localhost"
             allowedMethods:
               - GET
               - POST
@@ -25,18 +25,52 @@ spring:
             allowCredentials: true
 
       routes:
-        - id: auth-service
+        # Public routes (no authentication required)
+        - id: auth-service-public
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/login, /api/auth/register, /api/auth/refresh
+          filters:
+            - RemoveRequestHeader=Cookie
+
+        # Protected auth routes (require authentication)
+        - id: auth-service-protected
           uri: lb://auth-service
           predicates:
             - Path=/api/auth/**
+          filters:
+            - AuthenticationFilter
 
+        # Sales service routes (require authentication)
         - id: sales-service
           uri: lb://sales-service
           predicates:
             - Path=/api/sales/**
+          filters:
+            - AuthenticationFilter
+
+        # Billing service routes (require authentication, admin only for certain paths)
+        - id: billing-service-admin
+          uri: lb://billing-service
+          predicates:
+            - Path=/api/billing/admin/**
+          filters:
+            - name: AuthenticationFilter
+              args:
+                isAdminOnly: true
 
         - id: billing-service
           uri: lb://billing-service
           predicates:
             - Path=/api/billing/**
+          filters:
+            - AuthenticationFilter
 
+jwt:
+  secret: ${JWT_SECRET:yourBase64EncodedSecretKeyHere}
+
+# Logging configuration for debugging
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.pfa.gatewayservice: DEBUG
