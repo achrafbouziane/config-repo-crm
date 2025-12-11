@@ -4,13 +4,11 @@ server:
 spring:
   cloud:
     gateway:
-      # 1. Discovery Client (Locates services via Eureka)
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
 
-      # 2. CORS Configuration (Fixes "Cross-Origin" errors with Angular)
       globalcors:
         cors-configurations:
           '[/**]':
@@ -26,7 +24,6 @@ spring:
             allowedHeaders: "*"
             allowCredentials: true
 
-      # 3. Routes (Traffic Cop)
       routes:
         - id: auth-service
           uri: lb://auth-service
@@ -43,6 +40,3 @@ spring:
           predicates:
             - Path=/api/billing/**
 
-# 4. Security (Used if Gateway does token parsing)
-jwt:
-  secret: ${JWT_SECRET_KEY}
