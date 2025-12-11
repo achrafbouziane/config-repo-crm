@@ -67,7 +67,7 @@ spring:
             - AuthenticationFilter
 
 jwt:
-  secret: ${JWT_SECRET:yourBase64EncodedSecretKeyHere}
+  secret: dGhpc2lzYXZlcnlzZWN1cmVzZWNyZXRrZXl0aGF0c2hvdWxkYmVyZXBsYWNlZGluamF2YWFwcGxpY2F0aW9uc2ZvcnByb2R1Y3Rpb251c2U=
 
 # Logging configuration for debugging
 logging:
