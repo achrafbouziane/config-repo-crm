@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://postgres-db:5432/crm_db
-    username: dev_user
-    password: dev_pass
+    username: postgres     # Aligned with docker-compose
+    password: postgres     # Aligned with docker-compose
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -11,16 +11,14 @@ spring:
       idle-timeout: 300000
       max-lifetime: 1200000
 
-  # FIX STARTS HERE
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-  # FIX ENDS HERE
 
   data:
     redis:
-      host: localhost
+      host: redis          # Use service name 'redis', not 'localhost'
       port: 6379
 
 jwt:
@@ -36,14 +34,9 @@ app:
   flyway:
     clean-on-startup: ${FLYWAY_CLEAN_ON_STARTUP:false}
 
-
-
 logging:
   level:
     root: DEBUG
-    com.crm.AuthService: TRACE
+    org.pfa.authservice: TRACE    # Aligned with org.pfa package structure
     org.flywaydb: TRACE
     org.springframework.security: DEBUG
-
-
-

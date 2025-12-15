@@ -5,7 +5,7 @@ spring:
   application:
     name: sales-service
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:http://config-server:8888" # Changed localhost -> config-server
   datasource:
     url: jdbc:postgresql://postgres-db:5432/crm_db
     username: postgres
@@ -13,14 +13,23 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate # Aligned with docker-compose
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     open-in-view: false
+  # Added Kafka Config
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/ # Changed localhost -> eureka-server
+
+jwt:
+  secret: ${JWT_SECRET_KEY}

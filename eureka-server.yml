@@ -4,15 +4,17 @@ server:
 spring:
   application:
     name: eureka-server
+  config:
+    import: "optional:configserver:http://config-server:8888" # Added Config Server import
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://eureka-server:${server.port}/eureka/ # localhost -> eureka-server
   instance:
-    hostname: localhost
+    hostname: eureka-server # localhost -> eureka-server
   server:
     enable-self-preservation: false
     eviction-interval-timer-in-ms: 4000
