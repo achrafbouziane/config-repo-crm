@@ -5,7 +5,7 @@ spring:
   application:
     name: gateway-service
   config:
-    import: "optional:configserver:http://config-server:8888" # Added Config Server
+    import: "optional:configserver:http://config-server:8888"
   cloud:
     gateway:
       discovery:
@@ -60,14 +60,12 @@ spring:
           filters:
             - AuthenticationFilter
 
-# Added Eureka client config
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
 
-jwt:
-  secret: ${JWT_SECRET_KEY} # Replaced hardcoded key
+
 
 logging:
   level:
